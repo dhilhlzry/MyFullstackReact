@@ -4,6 +4,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Cashier from "./pages/Cashier";
 import Home from "./pages/Home";
+import Example from "./components/Example";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "Cashier",
     element: <Cashier />,
+  },
+  {
+    path: "Coba",
+    element: <Example />,
   },
 ]);
 

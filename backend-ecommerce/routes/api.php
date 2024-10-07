@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CashierController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
@@ -28,3 +29,7 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::put('/update_products/{id}', [ProductController::class, 'update']);
 
 Route::delete('/delete_products/{id}', [ProductController::class, 'delete']);
+
+Route::post('/store_cashier', [CashierController::class, 'store']);
+
+
