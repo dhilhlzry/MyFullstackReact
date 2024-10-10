@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('headtrans', function (Blueprint $table) {
             $table->id();
-            $table->string('kode')->nullable();
-            $table->string('tanggal');
+            $table->string('code')->nullable();
+            $table->string('date');
             $table->string('user');
-            $table->integer('jumlah');
-            $table->integer('total_bayar');
-            $table->integer('bayar');
-            $table->integer('kembali');
+            $table->integer('amount');
+            $table->integer('totalprice');
+            $table->integer('pay');
+            $table->integer('change');
             $table->timestamps();
         });
     }

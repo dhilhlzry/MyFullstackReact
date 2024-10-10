@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('detailtrans', function (Blueprint $table) {
             $table->id();
-            $table->string('kode')->nullable();
-            $table->string('kode_produk');
-            $table->string('produk');
-            $table->integer('harga');
-            $table->integer('qty');
+            $table->string('code')->nullable();
+            $table->string('id_product');
+            $table->string('product');
+            $table->integer('price');
+            $table->integer('quantity');
             $table->integer('subtotal');
             $table->timestamps();
         });

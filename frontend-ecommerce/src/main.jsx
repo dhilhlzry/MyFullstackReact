@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Cashier from "./pages/Cashier";
 import Home from "./pages/Home";
 import Example from "./components/Example";
+import PrintComponent from "./components/PrintComponent";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,8 @@ const router = createBrowserRouter([
   },
   {
     path: "Coba",
-    element: <Example />,
+    // element: <Example />,
+    element: <PrintComponent/>,
   },
 ]);
 

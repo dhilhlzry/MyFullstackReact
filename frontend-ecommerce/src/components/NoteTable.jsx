@@ -18,7 +18,7 @@ function NoteTable({ products, cart, totalPrice, clearCart }) {
   const openSuccessModal = () => setSuccessModalOpen(true);
   const closeSuccessModal = () => {
     setSuccessModalOpen(false);
-    window.location.reload();
+    // window.location.reload();
   };
 
   const [pay, setPay] = useState("");
@@ -46,20 +46,20 @@ function NoteTable({ products, cart, totalPrice, clearCart }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const jumlah = cart.length;
+    const amount = cart.length;
     const change = pay - totalPrice;
-    const id_produk = cart.map((item) => item.id);
-    const qty = cart.map((item) => item.qty);
+    const id_products = cart.map((item) => item.id);
+    const quantities = cart.map((item) => item.qty);
     try {
       const response = await axios.post(
         "http://localhost:8000/api/store_cashier",
         {
-          jumlah,
+          amount,
           totalPrice,
           pay,
           change,
-          id_produk,
-          qty,
+          id_products,
+          quantities,
         }
       );
       console.log("Success:", response.data);
@@ -70,8 +70,6 @@ function NoteTable({ products, cart, totalPrice, clearCart }) {
       console.error("Error:", error);
     }
   };
-
-  console.log(cart.map((item) => item.qty));
 
   return (
     <div className="w-2/5">
@@ -222,7 +220,9 @@ function NoteTable({ products, cart, totalPrice, clearCart }) {
             </button>
           </form>
         </Modal>
-        <AlertSuccess isOpen={isSuccessModalOpen} onClose={closeSuccessModal} />
+        <AlertSuccess isOpen={isSuccessModalOpen} onClose={closeSuccessModal}>
+          Transaksi Berhasil, Terima Kasih atas Pembeliannya !
+        </AlertSuccess>
       </div>
     </div>
   );

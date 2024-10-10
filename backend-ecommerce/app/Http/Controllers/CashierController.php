@@ -13,7 +13,7 @@ class CashierController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jumlah' => 'required|numeric',
+            'amount' => 'required|numeric',
             'totalPrice' => 'required|numeric',
             'pay' => 'required|numeric',
             'change' => 'required|numeric',
@@ -23,25 +23,25 @@ class CashierController extends Controller
 
         // Simpan data ke database atau lakukan sesuatu
         Headtrans::create([
-            'kode' => 'TRS' . $kodeauto->invoice,
-            'tanggal' => Carbon::parse(now())->locale('id')->isoFormat('D MMMM Y'),
+            'code' => 'TRS' . $kodeauto->invoice,
+            'date' => Carbon::parse(now())->locale('id')->isoFormat('D MMMM Y'),
             'user' => 'PTG00001',
-            'jumlah' => $request->jumlah,
-            'total_bayar' => $request->totalPrice,
-            'bayar' => $request->pay,
-            'kembali' => $request->change,
+            'amount' => $request->amount,
+            'totalprice' => $request->totalPrice,
+            'pay' => $request->pay,
+            'change' => $request->change,
         ]);
 
-        foreach ($request->id_produk as $index => $id) {
+        foreach ($request->id_products as $index => $id) {
             $detail = DB::table('products')->where('id', $id)->first();
-            $quantity = $request->qty[$index];
+            $quantity = $request->quantities[$index];
 
             Detailtrans::create([
-                'kode' => 'TRS' . $kodeauto->invoice,
-                'kode_produk' => $detail->id,
-                'produk' => $detail->name,
-                'harga' => $detail->price,
-                'qty' => $quantity,
+                'code' => 'TRS' . $kodeauto->invoice,
+                'id_product' => $detail->id,
+                'product' => $detail->name,
+                'price' => $detail->price,
+                'quantity' => $quantity,
                 'subtotal' => $detail->price * $quantity,
             ]);
         }

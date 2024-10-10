@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Modal from "../components/modal";
 import Navbar from "../components/Navbar";
+import AlertSuccess from "../components/AlertSuccess";
+
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [value, setValue] = useState([]);
@@ -17,6 +19,13 @@ const Home = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+
+  const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
+  const openSuccessModal = () => setSuccessModalOpen(true);
+  const closeSuccessModal = () => {
+    setSuccessModalOpen(false);
+    window.location.reload();
+  };
 
   const [isModalOpenEdit, setModalOpenEdit] = useState(false);
   const openModalEdit = async (id) => {
@@ -66,7 +75,7 @@ const Home = () => {
 
       console.log("Success:", response.data);
       closeModal();
-      window.location.reload();
+      openSuccessModal();
     } catch (error) {
       console.error("Error:", error);
     }
@@ -86,8 +95,8 @@ const Home = () => {
       );
 
       console.log("Success:", response.data);
-      closeModal();
-      window.location.reload();
+      closeModalEdit();
+      openSuccessModal();
     } catch (error) {
       console.error("Error:", error);
     }
@@ -95,7 +104,7 @@ const Home = () => {
 
   const deleteProduct = async (id) => {
     const userConfirmed = window.confirm(
-      "Apakah kamu yakin ingin Menghapus data ini?"
+      "Are You Sure Want To Delete This Product ?"
     );
     if (userConfirmed) {
       // Jika user menekan "OK"
@@ -104,7 +113,7 @@ const Home = () => {
           "http://localhost:8000/api/delete_products/" + id
         );
         console.log("Success:", response.data);
-        window.location.reload();
+        openSuccessModal();
       } catch (error) {
         console.error("Error:", error);
       }
@@ -277,14 +286,14 @@ const Home = () => {
                 </tr>
               </thead>
               {products.length > 0 &&
-                products.map((product) => (
+                products.map((product, index) => (
                   <tbody
                     className="border-b dark:bg-gray-50 dark:border-gray-300"
-                    key={product.id}
+                    key={index}
                   >
                     <tr>
                       <td className="px-3 text-2xl font-medium dark:text-gray-800">
-                        {product.id}
+                        {index + 1}
                       </td>
                       <td className="dark:text-gray-700 px-4">
                         {product.name}
@@ -337,6 +346,9 @@ const Home = () => {
           </div>
         </div>
         {/* end table */}
+        <AlertSuccess isOpen={isSuccessModalOpen} onClose={closeSuccessModal}>
+          Data Products Has Been Changed Successfully.
+        </AlertSuccess>
       </div>
     </>
   );

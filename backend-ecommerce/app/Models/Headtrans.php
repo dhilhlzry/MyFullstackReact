@@ -10,12 +10,12 @@ class Headtrans extends Model
     use HasFactory;
     protected $table = 'headtrans';
     protected $fillable = [
-        'kode',
-        'tanggal',
+        'code',
+        'date',
         'user',
-        'jumlah',
-        'total_bayar',
-        'bayar',
-        'kembali',
+        'amount',
+        'totalprice',
+        'pay',
+        'change',
     ];
 }

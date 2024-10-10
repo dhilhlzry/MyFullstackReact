@@ -9,12 +9,11 @@ class Detailtrans extends Model
 {use HasFactory;
     protected $table = 'detailtrans';
     protected $fillable = [
-        'id',
-        'kode',
-        'kode_produk',
-        'produk',
-        'harga',
-        'qty',
+        'code',
+        'id_product',
+        'product',
+        'price',
+        'quantity',
         'subtotal',
     ];
 }
